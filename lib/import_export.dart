@@ -16,3 +16,4 @@ export 'dart:convert';
 export 'package:movie_app/features/movies/data/movie_api_service.dart';
 export 'package:movie_app/features/movies/model/movie_detail_model.dart';
 export 'package:movie_app/features/movies/model/search_movie_model.dart';
+export 'package:movie_app/api_constants.dart';

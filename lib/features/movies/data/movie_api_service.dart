@@ -1,4 +1,3 @@
-import 'package:movie_app/api_constants.dart';
 import 'package:movie_app/import_export.dart';
 import 'package:http/http.dart' as http;
 
