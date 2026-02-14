@@ -87,9 +87,45 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 builder: (context, state) {
                   if (state is MovieLoading) {
                     return const Center(
-                        child: CircularProgressIndicator());
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (state is MovieError) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.error_outline,
+                              size: 60, color: Colors.grey),
+                          const SizedBox(height: 12),
+                          Text(state.message),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: () {
+                              context.read<MovieBloc>()
+                                  .add(SearchMovie(widget.query));
+                            },
+                            child: const Text("Retry"),
+                          )
+                        ],
+                      ),
+                    );
                   }
                   if (state is MovieLoaded) {
+
+                    if (state.movies.isEmpty) {
+                      return const Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.search_off,
+                                size: 60, color: Colors.grey),
+                            SizedBox(height: 12),
+                            Text("No movies found"),
+                          ],
+                        ),
+                      );
+                    }
                     return GridView.builder(
                       itemCount: state.movies.length,
                       gridDelegate:

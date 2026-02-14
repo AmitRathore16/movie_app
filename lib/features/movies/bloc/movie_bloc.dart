@@ -15,6 +15,11 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         final searchResults =
         await api.searchMovies(event.query);
 
+        if (searchResults.isEmpty) {
+          emit(MovieLoaded([], favourites));
+          return;
+        }
+
         currentResults = searchResults.map((e) {
           return Movie(
             id: e.imdbID,
@@ -33,10 +38,9 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
           );
         }).toList();
 
-
         emit(MovieLoaded(currentResults, favourites));
       } catch (e) {
-        emit(MovieLoaded([], favourites));
+        emit(MovieError("Failed to fetch movies. Please try again."));
       }
     });
 
@@ -105,8 +109,9 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
 
         emit(MovieLoaded(currentResults, favourites));
       } catch (e) {
-        emit(MovieLoaded(currentResults, favourites));
+        emit(MovieError("Failed to load movie details."));
       }
+
     });
   }
 }

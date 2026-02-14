@@ -16,6 +16,8 @@ class MovieApiService {
       return [];
     }
 
+
+
     return (data["Search"] as List)
         .map((e) => SearchMovieModel.fromJson(e))
         .toList();

@@ -32,7 +32,31 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
           );
         }
-
+        if (state is MovieError) {
+          return Scaffold(
+            backgroundColor: const Color(0xffF5F6FA),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.error_outline,
+                      size: 60, color: Colors.grey),
+                  const SizedBox(height: 12),
+                  Text(state.message),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<MovieBloc>().add(
+                        FetchMovieDetail(widget.movie.id),
+                      );
+                    },
+                    child: const Text("Retry"),
+                  )
+                ],
+              ),
+            ),
+          );
+        }
         Movie currentMovie = widget.movie;
 
         if (state is MovieLoaded) {

@@ -1,6 +1,5 @@
 import 'package:movie_app/import_export.dart';
 
-
 abstract class MovieState extends Equatable {
   @override
   List<Object?> get props => [];
@@ -18,4 +17,13 @@ class MovieLoaded extends MovieState {
 
   @override
   List<Object?> get props => [movies, favs];
+}
+
+class MovieError extends MovieState {
+  final String message;
+
+  MovieError(this.message);
+
+  @override
+  List<Object?> get props => [message];
 }
